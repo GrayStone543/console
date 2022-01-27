@@ -1,0 +1,60 @@
+@startuml
+left to right direction
+actor User
+rectangle Console {
+    skinparam actorStyle Hollow
+    actor Monitor
+    usecase (Monitoring connecter port) as UC21
+
+    usecase UC_physical as "Physical setup
+    ==
+    Power on
+    Power off
+    Choosing connecter port orientation
+    --
+    Charging the displaying unit
+    Connecting a endoscope
+    Connecting to external screens
+    Connecting to WiFi and LAN
+    Connecting USB storage"
+
+    usecase UC_profile as "User profiles
+    ==
+    Add user
+    Edit
+    Delete
+    --
+    Login"
+
+    usecase UC_liveview as "Live View
+    ==
+    Video Recording
+    Snapshot
+    Image Adjustments
+    Live image rotation
+    Zoom
+    Dual view"
+
+    usecase UC_archive as "Archive
+    ==
+    Recent
+    Search
+    Procedure Folder"
+
+    usecase UC_settings as "Settings
+    ==
+    Language
+    Date and Time
+    DICOM
+    General settings"
+
+    UC21 <-- Monitor
+}
+
+User --> UC_physical
+User --> UC_profile
+User --> UC_liveview
+User --> UC_archive
+User --> UC_settings
+
+@enduml

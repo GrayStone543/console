@@ -1,0 +1,37 @@
+Usecase: Power on
+
+usecase 說明:
+  user 按下 'power button' 開機
+
+先決條件:
+  1. Console 在 Standby 模式
+  2. Battery 電量足夠
+
+預期結果:
+  Console 點亮 panel, 如果有連接內視鏡則顯示 live image; 20 秒左右顯示 GUI
+
+基本過程:
+  1. user 按下 'power button'
+  2. Console 檢測到 'power button' 被按下
+  3. Console 檢測目前的 power state
+  4. Console 檢測剩餘電量
+  5. Console 點亮 panel
+  6. Console 檢測內視鏡連接狀態
+  7. 顯示 live image
+  8. 顯示 GUI
+
+替代過程1: 不是 standby mode
+  3. Console 檢測目前的 power state 是 normal mode
+  4. Console 進入 power off
+
+替代過程2: 剩餘電量不足
+  4. Console 檢測剩餘電量, 電量不足
+  5. Console 閃爍 'power button' 上的 LED
+  6. Console 進入 power off
+
+替代過程3: 沒有連接內視鏡
+  6. Console 檢測內視鏡狀態, 沒有連接內視鏡
+  7. Console 顯示 '提示如何連接內視鏡' 的動畫
+  8. 顯示 GUI
+
+  

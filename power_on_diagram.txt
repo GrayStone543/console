@@ -1,0 +1,22 @@
+@startuml
+usecase "Power on"
+
+actor User
+boundary "Power button" as powerkey
+control "Power manager" as powermanager
+boundary "Endoscope connector" as endoscope
+boundary Panel
+boundary LED
+entity Console
+
+User --> endoscope
+User --> powerkey
+powerkey --> Console
+Console -- endoscope
+Console -- powermanager
+Console ---> Panel
+Console --> LED
+Panel --> User
+LED --> User
+
+@enduml
