@@ -1,0 +1,12 @@
+@startuml
+
+actor User
+boundary Panel
+entity Console
+
+User -> Console : Rotate 180°
+activate Console
+Console -> Console : orientation changed
+Console -> Panel : rotate 180°
+
+@enduml

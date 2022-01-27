@@ -3,20 +3,18 @@ usecase "Power on"
 
 actor User
 boundary "Power button" as powerkey
-control "Power manager" as powermanager
-boundary "Endoscope connector" as endoscope
 boundary Panel
 boundary LED
-entity Console
+control LiveViewManager #lightgreen
+entity Console #cyan
 
-User --> endoscope
-User --> powerkey
-powerkey --> Console
-Console -- endoscope
-Console -- powermanager
-Console ---> Panel
-Console --> LED
-Panel --> User
-LED --> User
+User --> powerkey : "按下 power key"
+powerkey --> Console : "key event"
+Console --> LiveViewManager #line:blue;text:blue : "start live view"
+LiveViewManager --> Panel #line:orange;text:orange : "Live images"
+Console --> Panel #line:blue : "turn on"
+Console --> LED #line:blue : "turn on"
+Panel --> User #line:green;text:green : "display"
+LED --> User #line:green;text:green : "light indication"
 
 @enduml

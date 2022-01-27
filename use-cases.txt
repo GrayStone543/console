@@ -2,25 +2,23 @@
 left to right direction
 actor User
 rectangle Console {
-    skinparam actorStyle Hollow
-    actor Monitor
-    usecase (Monitoring connecter port) as UC21
+    rectangle Physical {
+        usecase UC_power_on as "Power on"
+        usecase UC_power_off as "Power off"
+        usecase UC_orientation as "CHoosing connecter port orientation"
+    }
 
-    usecase UC_physical as "Physical setup
-    ==
-    Power on
-    Power off
-    Choosing connecter port orientation
-    --
-    Charging the displaying unit
-    Connecting a endoscope
-    Connecting to external screens
-    Connecting to WiFi and LAN
-    Connecting USB storage"
+    rectangle Connector {
+        usecase UC_charging as "Charging the console"
+        usecase UC_endoscope as "Connecting a endoscope"
+        usecase UC_external as "Connecting to external screens"
+        usecase UC_network as "Connecting to WiFi and LAN"
+        usecase UC_usb as "Connecting USB storage"
+    }
 
     usecase UC_profile as "User profiles
     ==
-    Add user
+    Add
     Edit
     Delete
     --
@@ -31,9 +29,9 @@ rectangle Console {
     Video Recording
     Snapshot
     Image Adjustments
-    Live image rotation
+    Live Image rotation
     Zoom
-    Dual view"
+    Dual View"
 
     usecase UC_archive as "Archive
     ==
@@ -47,11 +45,16 @@ rectangle Console {
     Date and Time
     DICOM
     General settings"
-
-    UC21 <-- Monitor
 }
 
-User --> UC_physical
+User --> UC_power_on
+User --> UC_power_off
+User --> UC_orientation
+User --> UC_charging
+User --> UC_endoscope
+User --> UC_external
+User --> UC_network
+User --> UC_usb
 User --> UC_profile
 User --> UC_liveview
 User --> UC_archive

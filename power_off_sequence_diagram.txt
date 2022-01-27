@@ -1,0 +1,16 @@
+@startuml
+
+actor User
+boundary "Power Button" as powerkey
+boundary Panel
+boundary LED
+entity Console
+
+User -> powerkey : press <Power button>
+powerkey -> Console : key event
+activate Console
+Console -> Panel : turn off
+Console -> LED : turn off
+Console -> Console : enter standby state
+
+@enduml

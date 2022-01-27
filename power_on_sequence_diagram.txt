@@ -1,0 +1,25 @@
+@startuml
+
+actor User
+boundary "Power button" as powerkey
+boundary Panel
+boundary LED
+control "LiveView Manager" as livemanager
+entity Console
+
+User -> powerkey : press <Power button>
+powerkey -> Console : key event
+activate Console
+Console -> Panel : turn on
+activate Panel
+Panel -> User : Display
+Console -> LED : turn on
+activate LED
+LED -> User : light indication
+Console -> livemanager : start live view
+activate livemanager
+livemanager -> Panel : live images
+Console -> Panel : GUI
+
+
+@enduml

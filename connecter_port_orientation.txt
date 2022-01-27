@@ -1,0 +1,15 @@
+Usecase: connecter port orientation
+
+usecase 說明:
+  User 旋轉 console 180°
+
+先決條件:
+  General settings 裡的 'Automatic image rotation' is enabled
+
+預期結果:
+  Panel 畫面顯示旋轉 180°
+
+基本過程:
+  1. User 旋轉 Console 180°
+  2. Console 偵測到旋轉
+  3. Console 控制 display 旋轉 180°
