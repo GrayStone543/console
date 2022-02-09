@@ -16,35 +16,34 @@ rectangle Console {
         usecase UC_usb as "Connecting USB storage"
     }
 
-    usecase UC_profile as "User profiles
-    ==
-    Add
-    Edit
-    Delete
-    --
-    Login"
+    rectangle Profiles {
+        usecase UC_add as "Add profile"
+        usecase UC_edit as "Edit profile"
+        usecase UC_delete as "Delete profile"
+        usecase UC_login as "Login"
+    }
 
-    usecase UC_liveview as "Live View
-    ==
-    Video Recording
-    Snapshot
-    Image Adjustments
-    Live Image rotation
-    Zoom
-    Dual View"
+    rectangle LiveView {
+        usecase UC_recording as "Video Recording"
+        usecase UC_snapshot as "Snapshot"
+        usecase UC_adjustment as "Image Adjustments"
+        usecase UC_rotation as "Live Image rotation"
+        usecase UC_zoom as "Zoom"
+        usecase UC_dual as "Dual view"
+    }
 
-    usecase UC_archive as "Archive
-    ==
-    Recent
-    Search
-    Procedure Folder"
+    rectangle Archive {
+        usecase UC_recent as "Recent"
+        usecase UC_search as "Search"
+        usecase UC_folder as "Prcedure Folder"
+    }
 
-    usecase UC_settings as "Settings
-    ==
-    Language
-    Date and Time
-    DICOM
-    General settings"
+    rectangle Settings {
+        usecase UC_language as "Language"
+        usecase UC_date as "Date and Time"
+        usecase UC_dicom as "DICOM"
+        usecase UC_general as "General Setting"
+    }
 }
 
 User --> UC_power_on
@@ -55,9 +54,22 @@ User --> UC_endoscope
 User --> UC_external
 User --> UC_network
 User --> UC_usb
-User --> UC_profile
-User --> UC_liveview
-User --> UC_archive
-User --> UC_settings
+User --> UC_add
+User --> UC_edit
+User --> UC_delete
+User --> UC_login
+User --> UC_recording
+User --> UC_snapshot
+User --> UC_adjustment
+User --> UC_rotation
+User --> UC_zoom
+User --> UC_dual
+User --> UC_recent
+User --> UC_search
+User --> UC_folder
+User --> UC_language
+User --> UC_date
+User --> UC_dicom
+User --> UC_general
 
 @enduml

@@ -3,24 +3,29 @@ Usecase: Power on
 usecase 說明:
   user 按下 <Power button> 開機
 
-先決條件:
+Primary Actor: [Person / Software / Hardware System]
+  Person
+
+Preconditions:
   1. Console 在 standby state
   2. Battery 電量足夠
 
-預期結果:
+Postconditions:
   Console 點亮 panel 及 LED 進入 power-on state;
   如果有連接內視鏡則顯示 live image; 20 秒左右顯示 GUI
 
-基本過程:
+Main Success Scenario:
   1. user 按下 <power button>
-  2. Console 收到到 power key event
+  2. Console 收到 power key event
   3. Console 點亮 LED
   4. Console 點亮 panel
   5. Console 要求 LiveViewManager 顯示 live view
   6. LiveViewManager 在 Panel 上顯示 live image
   7. Console 顯示 GUI
 
-替代過程1: 沒有連接內視鏡
+Extensions: 沒有連接內視鏡
   6. LiveViewManager 在 Panel 上顯示 '提示如何連接內視鏡' 的動畫
   7. Console 顯示 GUI
 
+Pritority:
+  High

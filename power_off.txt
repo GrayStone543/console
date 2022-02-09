@@ -3,16 +3,21 @@ Usecase: Power off
 usecase 說明:
   user 按下 <Power button> 關機
 
-先決條件:
+Primary Actor:
+  Person
+
+Preconditions:
   Console 在 power-on state
 
-預期結果:
+Postconditions:
   Console 關閉 Panel 及 LED 進入 standby state
 
-基本過程:
+Main Success Scenario:
   1. user 按下 <Power button>
   2. Console 收到 power key event
   3. Console 關閉 Panel
   4. Console 關閉 LED
   5. Console 進入 standby state
 
+Priority:
+  High
