@@ -1,75 +1,69 @@
 @startuml
-left to right direction
 actor User
-rectangle Console {
-    rectangle Physical {
-        usecase UC_power_on as "Power on"
-        usecase UC_power_off as "Power off"
-        usecase UC_orientation as "CHoosing connecter port orientation"
-    }
-
-    rectangle Connector {
-        usecase UC_charging as "Charging the console"
-        usecase UC_endoscope as "Connecting a endoscope"
-        usecase UC_external as "Connecting to external screens"
-        usecase UC_network as "Connecting to WiFi and LAN"
-        usecase UC_usb as "Connecting USB storage"
-    }
-
-    rectangle Profiles {
-        usecase UC_add as "Add profile"
-        usecase UC_edit as "Edit profile"
-        usecase UC_delete as "Delete profile"
-        usecase UC_login as "Login"
-    }
-
-    rectangle LiveView {
-        usecase UC_recording as "Video Recording"
-        usecase UC_snapshot as "Snapshot"
-        usecase UC_adjustment as "Image Adjustments"
-        usecase UC_rotation as "Live Image rotation"
-        usecase UC_zoom as "Zoom"
-        usecase UC_dual as "Dual view"
-    }
-
-    rectangle Archive {
-        usecase UC_recent as "Recent"
-        usecase UC_search as "Search"
-        usecase UC_folder as "Prcedure Folder"
-    }
-
-    rectangle Settings {
-        usecase UC_language as "Language"
-        usecase UC_date as "Date and Time"
-        usecase UC_dicom as "DICOM"
-        usecase UC_general as "General Setting"
-    }
-}
+usecase UC_power_on as "Power on"
+usecase UC_power_off as "Power off"
+usecase UC_charging as "Charging the console"
+usecase UC_external as "Connecting to external screens"
 
 User --> UC_power_on
 User --> UC_power_off
-User --> UC_orientation
 User --> UC_charging
-User --> UC_endoscope
 User --> UC_external
-User --> UC_network
-User --> UC_usb
-User --> UC_add
-User --> UC_edit
-User --> UC_delete
-User --> UC_login
+
+newpage
+actor User
+usecase UC_endoscope as "Connecting an endoscope"
+usecase UC_recording as "Video Recording"
+usecase UC_snapshot as "Snapshot"
+usecase UC_adjustment as "Image Adjustments"
+usecase UC_rotation as "Live Image rotation"
+usecase UC_zoom as "Zoom"
+usecase UC_dual as "Dual view"
+
+User --> UC_endoscope
 User --> UC_recording
 User --> UC_snapshot
 User --> UC_adjustment
 User --> UC_rotation
 User --> UC_zoom
 User --> UC_dual
-User --> UC_recent
-User --> UC_search
-User --> UC_folder
+
+newpage
+actor User
+usecase UC_network as "Connecting to WiFi and LAN"
+usecase UC_usb as "Connecting USB storage"
+
+usecase UC_language as "Language"
+usecase UC_date as "Date and Time"
+usecase UC_dicom as "DICOM"
+usecase UC_general as "General Setting"
+usecase UC_orientation as "Connecter port orientation"
+
+User --> UC_network
+User --> UC_usb
 User --> UC_language
 User --> UC_date
 User --> UC_dicom
 User --> UC_general
+User --> UC_orientation
+
+newpage
+actor User
+usecase UC_add as "Add profile"
+usecase UC_edit as "Edit profile"
+usecase UC_delete as "Delete profile"
+usecase UC_login as "Login"
+
+usecase UC_recent as "Recent archive"
+usecase UC_search as "Search archive"
+usecase UC_folder as "Prcedure Folder"
+
+User --> UC_add
+User --> UC_edit
+User --> UC_delete
+User --> UC_login
+User --> UC_recent
+User --> UC_search
+User --> UC_folder
 
 @enduml
