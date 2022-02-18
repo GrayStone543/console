@@ -1,25 +1,36 @@
 @startuml
 
+title "Power On"
+
 actor User
 boundary "Power button" as powerkey
-boundary Panel
-boundary LED
-control "LiveView Manager" as livemanager
-entity Console
+control OS
+control "Console System" as console
 
 User -> powerkey : press <Power button>
-powerkey -> Console : key event
-activate Console
-Console -> Panel : turn on
-activate Panel
-Panel -> User : Display
-Console -> LED : turn on
-activate LED
-LED -> User : light indication
-Console -> livemanager : start live view
-activate livemanager
-livemanager -> Panel : live images
-Console -> Panel : GUI
+powerkey -> OS : key event
+OS -> console: launch
+activate console
+console ->] : initialization
+alt initialization success
+  console <-] : success
+else initiaization failure
+  console <-] : fail
+  console -> OS : show error message
+end
+console ->] : "Self-Test"
+alt Self-Test success
+  console <-] : success
+else Self-Test failure
+  console <-] : error occurred
+  console -> OS : show error message
+end
+alt endoscope connected
+  console -> OS : enable Live View
+else no connected endoscope
+  console -> OS : show information
+end
+console -> OS : show GUI
 
 
 @enduml

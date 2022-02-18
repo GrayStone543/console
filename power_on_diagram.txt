@@ -1,20 +1,19 @@
 @startuml
-usecase "Power on"
+
+title "Power On"
+usecase "Self-Test" as UC_selftest
 
 actor User
 boundary "Power button" as powerkey
-boundary Panel
-boundary LED
-control LiveViewManager #lightgreen
-entity Console #cyan
+control OS #lightgreen
+control "Console System" as console #cyan
 
-User --> powerkey : "按下 power key"
-powerkey --> Console : "key event"
-Console --> LiveViewManager #line:blue;text:blue : "start live view"
-LiveViewManager --> Panel #line:orange;text:orange : "Live images"
-Console --> Panel #line:blue : "turn on"
-Console --> LED #line:blue : "turn on"
-Panel --> User #line:green;text:green : "display"
-LED --> User #line:green;text:green : "light indication"
+User --> powerkey : "press power key"
+powerkey --> OS : "key event"
+OS --> console : activate
+console --> console : initialization
+console --> UC_selftest
+console --> OS : enable live-view
+console --> OS : show GUI
 
 @enduml

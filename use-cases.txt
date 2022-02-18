@@ -4,11 +4,13 @@ usecase UC_power_on as "Power on"
 usecase UC_power_off as "Power off"
 usecase UC_charging as "Charging the console"
 usecase UC_external as "Connecting to external screens"
+usecase UC_update as "Firmware Update"
 
 User --> UC_power_on
 User --> UC_power_off
 User --> UC_charging
 User --> UC_external
+User --> UC_update
 
 newpage
 actor User
