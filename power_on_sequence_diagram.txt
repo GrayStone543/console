@@ -6,16 +6,18 @@ actor User
 boundary "Power button" as powerkey
 control OS
 control "Console System" as console
+control "DICOM service" as dicom
 
 User -> powerkey : press <Power button>
 powerkey -> OS : key event
 OS -> console: launch
 activate console
-console ->] : initialization
+console -> dicom : activate
+activate dicom
 alt initialization success
-  console <-] : success
+  console <- dicom : success
 else initiaization failure
-  console <-] : fail
+  console <- dicom : fail
   console -> OS : show error message
 end
 console ->] : "Self-Test"

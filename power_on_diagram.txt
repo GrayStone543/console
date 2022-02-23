@@ -7,12 +7,13 @@ actor User
 boundary "Power button" as powerkey
 control OS #lightgreen
 control "Console System" as console #cyan
+control "DICOM service" as dicom
 
 User --> powerkey : "press power key"
 powerkey --> OS : "key event"
 OS --> console : activate
-console --> console : initialization
-console --> UC_selftest
+console --> dicom : activate
+console --> UC_selftest : execution
 console --> OS : enable live-view
 console --> OS : show GUI
 

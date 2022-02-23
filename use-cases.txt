@@ -5,12 +5,14 @@ usecase UC_power_off as "Power off"
 usecase UC_charging as "Charging the console"
 usecase UC_external as "Connecting to external screens"
 usecase UC_update as "Firmware Update"
+usecase UC_selftest as "Power on Self-test"
 
 User --> UC_power_on
 User --> UC_power_off
 User --> UC_charging
 User --> UC_external
 User --> UC_update
+UC_power_on --> UC_selftest
 
 newpage
 actor User
@@ -40,6 +42,11 @@ usecase UC_date as "Date and Time"
 usecase UC_dicom as "DICOM"
 usecase UC_general as "General Setting"
 usecase UC_orientation as "Connecter port orientation"
+usecase UC_usbport as "USB port enable"
+usecase UC_disporient as "Display Orientation Enable"
+usecase UC_access as "Archive Access without Login"
+usecase UC_logout as "Automatic Logout"
+usecase UC_imagerotation as "Live Image Rotation Enable"
 
 User --> UC_network
 User --> UC_usb
@@ -48,6 +55,11 @@ User --> UC_date
 User --> UC_dicom
 User --> UC_general
 User --> UC_orientation
+UC_general --> UC_usbport
+UC_general --> UC_disporient
+UC_general --> UC_access
+UC_general --> UC_logout
+UC_general --> UC_imagerotation
 
 newpage
 actor User
