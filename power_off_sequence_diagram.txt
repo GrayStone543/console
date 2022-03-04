@@ -1,16 +1,35 @@
 @startuml
 
+title "Power Off"
+
 actor User
 boundary "Power Button" as powerkey
-boundary Panel
-boundary LED
 entity Console
+entity OS
 
 User -> powerkey : press <Power button>
-powerkey -> Console : key event
-activate Console
-Console -> Panel : turn off
-Console -> LED : turn off
-Console -> Console : enter standby state
+powerkey -> OS
+OS -> Console : key event
+Console -> User : message window
+User -> Console : confirmed
+Console -> OS : power off
+OS -> OS : power off
+
+newpage
+
+title "Power Off"
+actor User
+boundary "Power Button" as powerkey
+entity Console
+entity OS
+
+User -> powerkey : press <Power button>
+powerkey -> OS
+OS -> Console : key event
+Console -> User : message window
+User -> Console : confirmed
+Console -> OS : stop recording
+Console -> OS : power off
+OS -> OS : power off
 
 @enduml

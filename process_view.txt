@@ -1,0 +1,42 @@
+@startuml
+
+title "Process View"
+
+class Console <<Process>> {
+
+}
+
+class dicom_service as "DICOM service" <<Process>> {
+
+}
+
+class dicom_controller as "DicomController" {
+
+}
+
+class selftest as "SelfTest" <<Thread>> {
+
+}
+
+class firmwareupdate as "FirmwareUpdate" <<Thread>> {
+
+}
+
+class cameramonitor as "CameraMonitor" <<Thread>> {
+
+}
+
+class batterymonitor as "BatteryMonitor" <<Thread>> {
+
+}
+
+class imageadjustment as "ImageAdjustment" {
+
+}
+
+hide <<Process>> circle
+hide <<Thread>> circle
+dicom_service *-- dicom_controller : use
+
+
+@enduml

@@ -1,0 +1,14 @@
+@startmindmap
+
++ Console
+++ Endoscope
+++ Network
+++ USB port
+++ Touch Panel
+-- Account
+-- Image
+-- Video
+
+
+
+@endmindmap
