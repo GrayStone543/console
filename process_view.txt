@@ -10,33 +10,65 @@ class dicom_service as "DICOM service" <<Process>> {
 
 }
 
-class dicom_controller as "DicomController" {
+class DicomController {
 
 }
 
-class selftest as "SelfTest" <<Thread>> {
+class SelfTest <<Thread>> {
 
 }
 
-class firmwareupdate as "FirmwareUpdate" <<Thread>> {
+class FirmwareUpdate <<Thread>> {
 
 }
 
-class cameramonitor as "CameraMonitor" <<Thread>> {
+class CameraMonitor <<Thread>> {
 
 }
 
-class batterymonitor as "BatteryMonitor" <<Thread>> {
+class ArchiveManager {
 
 }
 
-class imageadjustment as "ImageAdjustment" {
+class VideoController {
+
+}
+
+class LiveView {
+
+}
+
+class Recording {
+
+}
+
+class Playback {
+
+}
+
+class BatteryMonitor <<Thread>> {
+
+}
+
+class ImageAdjustment {
 
 }
 
 hide <<Process>> circle
 hide <<Thread>> circle
-dicom_service *-- dicom_controller : use
+
+dicom_service *-- DicomController : use
+Console --> SelfTest
+Console --> FirmwareUpdate
+Console --> CameraMonitor
+Console --> BatteryMonitor
+Console *-- ImageAdjustment
+Console *-- VideoController
+Console *-- ArchiveManager
+ArchiveManager ..> VideoController
+VideoController *-- LiveView
+VideoController *-- Recording
+VideoController *-- Playback
 
 
 @enduml
