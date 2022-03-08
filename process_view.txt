@@ -10,11 +10,19 @@ class dicom_service as "DICOM service" <<Process>> {
 
 }
 
-class DicomController {
+class DicomManager {
+
+}
+
+class PacsManager {
 
 }
 
 class SelfTest <<Thread>> {
+
+}
+
+class AdcManager {
 
 }
 
@@ -30,19 +38,23 @@ class ArchiveManager {
 
 }
 
-class VideoController {
+class CameraManager {
 
 }
 
-class LiveView {
+class LiveViewController {
 
 }
 
-class Recording {
+class RecordingController {
 
 }
 
-class Playback {
+class PlaybackController {
+
+}
+
+class SnapShotController {
 
 }
 
@@ -54,21 +66,55 @@ class ImageAdjustment {
 
 }
 
+class ExportManager {
+
+}
+
+class UsbManager {
+
+}
+
+class NetworkManager {
+
+}
+
+class ProfileManager {
+
+}
+
+class SettingManager {
+
+}
+
 hide <<Process>> circle
 hide <<Thread>> circle
 
-dicom_service *-- DicomController : use
-Console --> SelfTest
-Console --> FirmwareUpdate
-Console --> CameraMonitor
-Console --> BatteryMonitor
-Console *-- ImageAdjustment
-Console *-- VideoController
-Console *-- ArchiveManager
-ArchiveManager ..> VideoController
-VideoController *-- LiveView
-VideoController *-- Recording
-VideoController *-- Playback
+dicom_service *-- DicomManager
+dicom_service *-- PacsManager
+dicom_service *-- NetworkManager
 
+Console -- BatteryMonitor
+Console -- CameraMonitor
+Console -- FirmwareUpdate
+Console -- SelfTest
+
+Console *-- CameraManager
+Console *-- ArchiveManager
+Console *-- ProfileManager
+Console *-- SettingManager
+
+ArchiveManager ..> CameraManager
+ArchiveManager ..> ExportManager
+ArchiveManager *-- PlaybackController
+ArchiveManager ..> ProfileManager
+ExportManager ..> dicom_service
+ExportManager ..> UsbManager
+
+CameraManager *-- LiveViewController
+CameraManager *-- RecordingController
+CameraManager *-- SnapShotController
+CameraManager *-- ImageAdjustment
+
+SelfTest *-- AdcManager
 
 @enduml
