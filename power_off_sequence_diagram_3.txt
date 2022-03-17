@@ -1,0 +1,37 @@
+@startuml
+
+title "Power off"
+
+actor User
+boundary "Power Button" as powerkey
+boundary GUI
+entity OS
+entity PowerManager
+entity PlaybackController
+
+User -> powerkey : press
+powerkey -> OS
+OS -> PowerManager : key event
+PowerManager -> GUI : confirm action
+GUI -> User
+User -> GUI : confirmed
+GUI -> PowerManager
+PowerManager -> PlaybackController : stop playback
+alt success
+  PlaybackController -> PowerManager : success
+  PowerManager -> OS : power off
+  alt success
+    OS -> OS : power off
+  else error occurred
+    OS -> PowerManager : fail
+    PowerManager -> GUI : error message
+    GUI -> User
+  end
+else error occurred
+  PlaybackController -> PowerManager :fail
+  PowerManager -> GUI : error message
+  GUI -> User
+end
+
+
+@enduml

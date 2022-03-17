@@ -7,6 +7,7 @@ boundary "Power Button" as powerkey
 boundary GUI
 entity OS
 entity PowerManager
+entity CameraManager
 
 User -> powerkey : press
 powerkey -> OS
@@ -15,11 +16,19 @@ PowerManager -> GUI : confirm action
 GUI -> User
 User -> GUI : confirmed
 GUI -> PowerManager
-PowerManager -> OS : power off
+PowerManager -> CameraManager : stop recording
 alt success
-  OS -> OS : power off
+  CameraManager -> PowerManager : success
+  PowerManager -> OS : power off
+  alt success
+    OS -> OS : power off
+  else error occurred
+    OS -> PowerManager : fail
+    PowerManager -> GUI : error message
+    GUI -> User
+  end
 else error occurred
-  OS -> PowerManager : fail
+  CameraManager -> PowerManager : fail
   PowerManager -> GUI : error message
   GUI -> User
 end

@@ -4,35 +4,36 @@ title "Power On"
 
 actor User
 boundary "Power button" as powerkey
+boundary GUI
 control OS
-control "Console System" as console
+control StartupManager
 control "DICOM service" as dicom
+control CameraManager
 
-User -> powerkey : press <Power button>
+User -> powerkey : press
 powerkey -> OS : key event
-OS -> console: launch
-activate console
-console -> dicom : activate
+OS -> StartupManager: launch
+activate StartupManager
+StartupManager -> GUI : boot animation
+StartupManager -> dicom : activate
 activate dicom
 alt initialization success
-  console <- dicom : success
+  StartupManager <- dicom : success
 else initiaization failure
-  console <- dicom : fail
-  console -> OS : show error message
+  StartupManager <- dicom : fail
+  StartupManager -> GUI : error message
+  GUI -> User
 end
-console ->] : "Self-Test"
+StartupManager ->] : "Self-Test"
 alt Self-Test success
-  console <-] : success
-else Self-Test failure
-  console <-] : error occurred
-  console -> OS : show error message
+  StartupManager <-] : success
+else some error occurred
+  StartupManager <-] : fail
+  StartupManager -> GUI : error message
+  GUI -> User
 end
-alt endoscope connected
-  console -> OS : enable Live View
-else no connected endoscope
-  console -> OS : show information
-end
-console -> OS : show GUI
+StartupManager -> CameraManager : enable live view
+StartupManager -> GUI : activate user interface
 
 
 @enduml

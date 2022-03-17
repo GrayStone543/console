@@ -1,0 +1,38 @@
+@startuml
+
+title "Software Architecture"
+
+package presentation as "Presentation Layer" {
+    [User Interface]
+    [Presentation Logic]
+}
+
+package business as "Business Layer" {
+    [PacsManager]
+    [DicomManager]
+    [NetworkManager]
+    [AdcManager]
+}
+
+package "Service Layer" {
+    [Dicom Service]
+}
+
+package data as "Data Layer" {
+    [SqlDatabaseController]
+}
+
+package "Native C/C++" {
+    [CameraPluginController]
+    [AdcController]
+}
+
+
+package "Driver Layer" {
+    [HwPluginController]
+}
+
+presentation ..> business
+business ..> data
+
+@enduml
