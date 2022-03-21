@@ -2,24 +2,24 @@
 
 title "Power On"
 left to right direction
-usecase "SelfTest" as UC_selftest
 
 actor User
 boundary "Power button" as powerkey
-boundary GUI
 control OS #lightgreen
 control StartupManager as startup #cyan
+control DisplayControl #cyan
 control "DICOM service" as dicom #lightblue
 control CameraManager as camera #cyan
+control "SelfTest" as selftest
 
 User -> powerkey : "press power key"
 powerkey -> OS
 OS -> startup : activate
-startup --> GUI : "boot animation"
+startup --> DisplayControl : "boot animation"
 startup --> dicom : activate
-startup --> UC_selftest : execution
+startup --> selftest : execution
 startup --> camera : activate
-startup --> GUI : display User-Interface
-GUI -> User
+startup --> DisplayControl : display User-Interface
+
 
 @enduml

@@ -4,36 +4,39 @@ title "Power On"
 
 actor User
 boundary "Power button" as powerkey
-boundary GUI
-control OS
+control OS #lightgreen
 control StartupManager
+control DisplayControl
 control "DICOM service" as dicom
 control CameraManager
+control SelfTest
 
 User -> powerkey : press
 powerkey -> OS : key event
 OS -> StartupManager: launch
 activate StartupManager
-StartupManager -> GUI : boot animation
+DisplayControl <- StartupManager : boot animation
+activate DisplayControl
 StartupManager -> dicom : activate
-activate dicom
-alt initialization success
-  StartupManager <- dicom : success
-else initiaization failure
-  StartupManager <- dicom : fail
-  StartupManager -> GUI : error message
-  GUI -> User
+alt error occurred
+  StartupManager <-- dicom : fail
+  DisplayControl <- StartupManager : error message
+else
+  StartupManager <-- dicom : success
+  activate dicom
 end
-StartupManager ->] : "Self-Test"
+StartupManager -> SelfTest : "Self-Test"
+activate SelfTest
 alt Self-Test success
-  StartupManager <-] : success
+  StartupManager <-- SelfTest : success
 else some error occurred
-  StartupManager <-] : fail
-  StartupManager -> GUI : error message
-  GUI -> User
+  StartupManager <-- SelfTest : fail
+  deactivate SelfTest
+  DisplayControl <- StartupManager : error message
 end
 StartupManager -> CameraManager : enable live view
-StartupManager -> GUI : activate user interface
+activate CameraManager
+DisplayControl <- StartupManager : activate user interface
 
 
 @enduml

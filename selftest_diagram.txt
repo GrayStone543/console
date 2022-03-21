@@ -1,0 +1,16 @@
+@startuml
+
+title "Self-Test"
+left to right direction
+
+control StartupManager #cyan
+control SelfTest
+control AdcManager
+control DisplayControl
+
+StartupManager -> SelfTest : activate
+SelfTest --> AdcManager : execution a test
+StartupManager --> DisplayControl : error message
+
+
+@enduml

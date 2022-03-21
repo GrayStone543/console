@@ -1,0 +1,15 @@
+@startuml
+
+title "Power Off"
+
+actor User
+boundary "Power Button" as powerkey
+control ShutdownManager
+control DisplayControl
+
+User -> powerkey : press
+powerkey -> ShutdownManager : activate
+activate ShutdownManager
+ShutdownManager -> DisplayControl : error message
+
+@enduml

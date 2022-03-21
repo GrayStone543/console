@@ -1,0 +1,22 @@
+@startuml
+
+title Export
+
+actor User
+control ExportManager
+control DisplayControl
+control USBManager
+
+
+ExportManager -> DisplayControl : list USB storages
+User -> ExportManager : pick up a USB storage
+ExportManager -> USBManager : save files to USB storage
+activate USBManager
+alt success
+  USBManager --> ExportManager : success
+else error occured
+  USBManager --> ExportManager
+  ExportManager -> DisplayControl : error message
+end
+
+@enduml

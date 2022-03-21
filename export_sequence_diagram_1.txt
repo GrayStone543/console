@@ -1,0 +1,29 @@
+@startuml
+
+title Export
+
+actor User
+control ExportManager
+control DisplayControl
+control "DICOM service" as dicom
+
+activate dicom
+ExportManager -> DisplayControl : export message
+activate ExportManager
+alt PACS
+  User -> ExportManager : selected PACS
+  ExportManager -> dicom : create DICOM objects
+  ExportManager -> dicom : send to PACS
+  alt success
+    dicom --> ExportManager : success
+  else error occurred
+    dicom --> ExportManager : error
+    ExportManager -> DisplayControl : error message
+  end
+else USB
+  User -> ExportManager : selected USB
+  ExportManager -> dicom : create DICOM objects
+  ExportManager -> dicom : write to USB storage
+end
+
+@enduml

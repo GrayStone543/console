@@ -1,0 +1,17 @@
+@startuml
+
+title "Video Recording"
+
+actor User
+control CameraMonitor #lightgreen
+control CameraManager #cyan
+control DisplayControl
+
+activate CameraMonitor
+User -> CameraMonitor : plug out the endoscope
+CameraMonitor -> CameraManager : the endoscope removed
+activate CameraManager
+CameraManager -> CameraManager : stop recording
+CameraManager -> DisplayControl : error message
+
+@enduml

@@ -4,33 +4,38 @@ title "Power off"
 
 actor User
 boundary "Power Button" as powerkey
-boundary GUI
-entity OS
-entity PowerManager
-entity PlaybackController
+control OS #lightgreen
+control ShutdownManager
+control PlaybackController
+control DisplayControl
 
 User -> powerkey : press
-powerkey -> OS
-OS -> PowerManager : key event
-PowerManager -> GUI : confirm action
-GUI -> User
-User -> GUI : confirmed
-GUI -> PowerManager
-PowerManager -> PlaybackController : stop playback
-alt success
-  PlaybackController -> PowerManager : success
-  PowerManager -> OS : power off
+powerkey -> ShutdownManager : activate
+activate ShutdownManager
+DisplayControl <- ShutdownManager : shutdown information
+alt Shutdown
+  User -> ShutdownManager : confirmed
+  ShutdownManager -> PlaybackController : stop playback
+  activate PlaybackController
   alt success
-    OS -> OS : power off
+    ShutdownManager <-- PlaybackController : success
+    deactivate PlaybackController
+    OS <- ShutdownManager : power off
+    activate OS
+    alt success
+      OS -> OS : power off
+    else error occurred
+      OS --> ShutdownManager : fail
+      deactivate OS
+      DisplayControl <- ShutdownManager : error message
+    end
   else error occurred
-    OS -> PowerManager : fail
-    PowerManager -> GUI : error message
-    GUI -> User
+    ShutdownManager <-- PlaybackController : fail
+    DisplayControl <- ShutdownManager : error message
   end
-else error occurred
-  PlaybackController -> PowerManager :fail
-  PowerManager -> GUI : error message
-  GUI -> User
+else Cancel
+  User -> ShutdownManager : Cancel
+  ShutdownManager -> DisplayControl : Clear message
 end
 
 

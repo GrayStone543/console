@@ -1,0 +1,21 @@
+@startuml
+
+title "Self-Test"
+
+control StartupManager #cyan
+control SelfTest
+control AdcManager
+control DisplayControl
+
+StartupManager -> SelfTest : activate
+activate SelfTest
+SelfTest -> AdcManager : execution a test
+alt pass
+  SelfTest <-- AdcManager : pass
+else fail
+  SelfTest <-- AdcManager : fail
+  StartupManager <-- SelfTest : fail
+  StartupManager -> DisplayControl : error message
+end
+
+@enduml

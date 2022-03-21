@@ -5,18 +5,17 @@ left to right direction
 
 actor User
 boundary "Power button" as powerkey
-boundary GUI
 control OS #lightgreen
-control PowerManager #cyan
+control ShutdownManager #cyan
+control DisplayControl
 control CameraManager #cyan
 control PlaybackController #cyan
 
 User --> powerkey : "press"
 powerkey -> OS
-OS -> PowerManager : "key event"
-PowerManager -> GUI : "confirm action"
-GUI -> User
-PowerManager --> CameraManager
-PowerManager --> PlaybackController
+OS -> ShutdownManager : "key event"
+ShutdownManager --> DisplayControl : "confirm message"
+ShutdownManager --> CameraManager
+ShutdownManager --> PlaybackController
 
 @enduml
